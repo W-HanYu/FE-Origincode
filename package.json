@@ -8,10 +8,14 @@
   "scripts": {
     "dev": "vuepress dev .",
     "start": "vuepress dev .",
-    "build": "vuepress build ."
+    "build": "vuepress build .",
+    "deploy": "vuepress build && gh-pages -d .vuepress/dist"
   },
   "dependencies": {
     "vuepress": "2.0.0-beta.60",
     "vuepress-theme-reco": "2.0.0-beta.53"
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
