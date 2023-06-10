@@ -16,20 +16,64 @@ export default defineUserConfig({
     lastUpdatedText: "",
     // series 为原 sidebar
     series: {
-      "/docs/theme-reco/": [
+      "/docs/react/principle-analysis/": [
         {
-          text: "module one",
-          children: ["home", "theme"],
+          text: "基础概念",
+          children: ["macro-structure", "workloop", "object-structure"],
         },
         {
-          text: "module two",
-          children: ["api", "plugin"],
+          text: "运行核心",
+          children: [
+            "bootstrap",
+            "reconciler-workflow",
+            "priority",
+            "scheduler",
+            "fibertree-prepare",
+            "fibertree-create",
+            "fibertree-update",
+            "fibertree-commit",
+          ],
+        },
+        {
+          text: "状态管理",
+          children: [
+            "state-effects",
+            "hook-summary",
+            "hook-state",
+            "hook-effect",
+            "context",
+          ],
         },
       ],
+      "/docs/react/algorithm":[
+        {
+          text: "React中的算法",
+          children:[
+            "diff",
+            "bitfield",
+            "dfs",
+            "heapsort",
+            "linkedlist",
+            "stack"
+          ]
+        }
+      ]
     },
     navbar: [
       { text: "首页", link: "/" },
-      { text: "React", link: "/categories/reco/1/" },
+      {
+        text: "React",
+        children: [
+          {
+            text: "原理篇",
+            link: "/docs/react/principle-analysis/macro-structure",
+          },
+          {
+            text: "算法篇",
+            link: "/docs/react/algorithm/diff",
+          },
+        ],
+      },
       { text: "Vue", link: "/tags/tag1/1/" },
       {
         text: "小程序",
