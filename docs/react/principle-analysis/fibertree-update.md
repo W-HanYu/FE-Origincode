@@ -54,7 +54,7 @@ export default App;
 
 在`初次渲染`完成之后, 与`fiber树`相关的内存结构如下(后文以此图为基础, 演示`对比更新`过程):
 
-![](../../snapshots/fibertree-update/beforeupdate.png)
+![](../../../snapshots/fibertree-update/beforeupdate.png)
 
 ## 更新入口
 
@@ -233,7 +233,7 @@ function markUpdateLaneFromFiberToRoot(
 - 从起点开始, 直到`HostRootFiber`, 设置父路径上所有节点(也包括`fiber.alternate`)的`fiber.childLanes`.
 - 通过设置`fiber.lanes`和`fiber.childLanes`就可以辅助判断子树是否需要更新(在下文`循环构造`中详细说明).
 
-![](../../snapshots/fibertree-update/markupdatelane.png)
+![](../../../snapshots/fibertree-update/markupdatelane.png)
 
 2. `对比更新`没有直接调用`performSyncWorkOnRoot`, 而是通过调度中心来处理, 由于本示例是在`Legacy`模式下进行, 最后会同步执行`performSyncWorkOnRoot`.(详细原理可以参考[React 调度原理(scheduler)](./scheduler.md)). 所以其调用链路`performSyncWorkOnRoot--->renderRootSync--->workLoopSync`与`初次构造`中的一致.
 
@@ -268,7 +268,7 @@ function renderRootSync(root: FiberRoot, lanes: Lanes) {
 
 此时的内存结构如下:
 
-![](../../snapshots/fibertree-update/status-refreshstack.png)
+![](../../../snapshots/fibertree-update/status-refreshstack.png)
 
 注意:
 
@@ -537,7 +537,7 @@ updateHostText = function (
 
 在上文已经说明, 进入循环构造前会调用`prepareFreshStack`刷新栈帧, 在进入`fiber树构造`循环之前, 保持这这个初始化状态:
 
-![](../../snapshots/fibertree-update/unitofwork0.png)
+![](../../../snapshots/fibertree-update/unitofwork0.png)
 
 `performUnitOfWork`第 1 次调用(只执行`beginWork`):
 
@@ -548,7 +548,7 @@ updateHostText = function (
   - `clone`之后, `新fiber`节点会丢弃`旧fiber`上的标志位(`flags`)和副作用(`effects`), 其他属性会继续保留.
 - 执行后: 返回被`clone`的下级节点`fiber(<App/>)`, 移动`workInProgress`指向子节点`fiber(<App/>)`
 
-![](../../snapshots/fibertree-update/unitofwork1.png)
+![](../../../snapshots/fibertree-update/unitofwork1.png)
 
 `performUnitOfWork`第 2 次调用(只执行`beginWork`):
 
@@ -558,7 +558,7 @@ updateHostText = function (
   - 在`updateClassComponent()`函数中, 调用`reconcileChildren()`生成下级子节点.
 - 执行后: 返回下级节点`fiber(<Header/>)`, 移动`workInProgress`指向子节点`fiber(<Header/>)`
 
-![](../../snapshots/fibertree-update/unitofwork2.png)
+![](../../../snapshots/fibertree-update/unitofwork2.png)
 
 `performUnitOfWork`第 3 次调用(执行`beginWork`和`completeUnitOfWork`):
 
@@ -569,7 +569,7 @@ updateHostText = function (
   - 又因为`fiber.childLanes`不在`渲染优先级`范围内, 证明`child`节点也不需要更新
 - `beginWork`执行后: 因为完全满足`bailout`逻辑, 返回`null`. 所以进入`completeUnitOfWork(unitOfWork)`函数, 传入的参数`unitOfWork`实际上就是`workInProgress`(此时指向`fiber(<Header/>)`)
 
-![](../../snapshots/fibertree-update/unitofwork3.0.png)
+![](../../../snapshots/fibertree-update/unitofwork3.0.png)
 
 - `completeUnitOfWork`执行前: `workInProgress`指向`fiber(<Header/>)`
 - `completeUnitOfWork`执行过程: 以`fiber(<Header/>)`为起点, 向上回溯
@@ -580,7 +580,7 @@ updateHostText = function (
 2. 上移副作用队列: 由于本节点`fiber(header)`没有副作用(`fiber.flags = 0`), 所以执行之后副作用队列没有实质变化(目前为空).
 3. 向上回溯: 由于还有兄弟节点, 把`workInProgress`指向下一个兄弟节点`fiber(button)`, 退出`completeUnitOfWork`.
 
-![](../../snapshots/fibertree-update/unitofwork3.1.png)
+![](../../../snapshots/fibertree-update/unitofwork3.1.png)
 
 `performUnitOfWork`第 4 次调用(执行`beginWork`和`completeUnitOfWork`):
 
@@ -599,7 +599,7 @@ updateHostText = function (
 2. 上移副作用队列: 由于本节点`fiber(button)`没有副作用(`fiber.flags = 0`), 所以执行之后副作用队列没有实质变化(目前为空).
 3. 向上回溯: 由于还有兄弟节点, 把`workInProgress`指向下一个兄弟节点`fiber(div)`, 退出`completeUnitOfWork`.
 
-![](../../snapshots/fibertree-update/unitofwork4.png)
+![](../../../snapshots/fibertree-update/unitofwork4.png)
 
 `performUnitOfWork`第 5 次调用(执行`beginWork`):
 
@@ -609,7 +609,7 @@ updateHostText = function (
   - 需要注意的是, 下级子节点是一个可迭代数组, 会把`fiber.child.sibling`一起构造出来, 同时根据需要设置`fiber.flags`. 在本例中, 下级节点有被删除的情况, 被删除的节点会被添加到父节点的副作用队列中(具体实现方式请参考[React 算法之调和算法](../algorithm/diff.md)).
 - 执行后: 返回下级节点`fiber(p)`, 移动`workInProgress`指向子节点`fiber(p)`
 
-![](../../snapshots/fibertree-update/unitofwork5.png)
+![](../../../snapshots/fibertree-update/unitofwork5.png)
 
 `performUnitOfWork`第 6 次调用(执行`beginWork`和`completeUnitOfWork`):
 
@@ -625,7 +625,7 @@ updateHostText = function (
 2. 上移副作用队列: 本节点`fiber(p)`没有副作用(`fiber.flags = 0`).
 3. 向上回溯: 由于还有兄弟节点, 把`workInProgress`指向下一个兄弟节点`fiber(p)`, 退出`completeUnitOfWork`.
 
-![](../../snapshots/fibertree-update/unitofwork6.png)
+![](../../../snapshots/fibertree-update/unitofwork6.png)
 
 `performUnitOfWork`第 7 次调用(执行`beginWork`和`completeUnitOfWork`):
 
@@ -643,7 +643,7 @@ updateHostText = function (
 2. 上移副作用队列: 本节点`fiber(p)`有副作用(`fiber.flags = Placement`), 需要将其添加到父节点的副作用队列之后.
 3. 向上回溯: 由于还有兄弟节点, 把`workInProgress`指向下一个兄弟节点`fiber(p)`, 退出`completeUnitOfWork`.
 
-![](../../snapshots/fibertree-update/unitofwork7.png)
+![](../../../snapshots/fibertree-update/unitofwork7.png)
 
 `performUnitOfWork`第 8 次调用(执行`beginWork`和`completeUnitOfWork`):
 
@@ -658,7 +658,7 @@ updateHostText = function (
 2. 上移副作用队列: 本节点`fiber(p)`有副作用(`fiber.flags = Placement`), 需要将其添加到父节点的副作用队列之后.
 3. 向上回溯: 由于没有兄弟节点, 把`workInProgress`指针指向父节点`fiber(div)`.
 
-![](../../snapshots/fibertree-update/unitofwork8.png)
+![](../../../snapshots/fibertree-update/unitofwork8.png)
 
 `completeUnitOfWork`第 2 次循环:
 
@@ -680,7 +680,7 @@ updateHostText = function (
 
 到此整个`fiber树构造循环(对比更新)`已经执行完毕, 拥有一棵新的`fiber树`, 并且在`fiber树`的根节点上挂载了副作用队列. `renderRootSync`函数退出之前, 会重置`workInProgressRoot = null`, 表明没有正在进行中的`render`. 且把最新的`fiber树`挂载到`fiberRoot.finishedWork`上. 这时整个 fiber 树的内存结构如下(注意`fiberRoot.finishedWork`和`fiberRoot.current`指针,在`commitRoot`阶段会进行处理):
 
-![](../../snapshots/fibertree-update/fibertree-beforecommit.png)
+![](../../../snapshots/fibertree-update/fibertree-beforecommit.png)
 
 无论是`初次构造`或者是`对比更新`, 当`fiber树构造`完成之后, 余下的逻辑几乎一致, 在[fiber 树渲染](./fibertree-commit.md)中继续讨论.
 

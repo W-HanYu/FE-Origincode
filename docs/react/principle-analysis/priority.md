@@ -16,7 +16,7 @@ date: 2023/06/10
 
 在`React@17.0.2`源码中, 一共有`2套优先级体系`和`1套转换体系`, 在深入分析之前, 再次回顾一下([reconciler 运作流程](./reconciler-workflow.md)):
 
-![](../../snapshots/reconciler-workflow/reactfiberworkloop.png)
+![](../../../snapshots/reconciler-workflow/reactfiberworkloop.png)
 
 `React`内部对于`优先级`的管理, 贯穿运作流程的 4 个阶段(从输入到输出), 根据其功能的不同, 可以分为 3 种类型:
 

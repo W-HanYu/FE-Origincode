@@ -9,7 +9,7 @@ date: 2023/06/10
 
 在正式解读`fiber树构造`之前, 再次回顾一下[reconciler 运作流程](./reconciler-workflow.md)的 4 个阶段:
 
-![](../../snapshots/reconciler-workflow/reactfiberworkloop.png)
+![](../../../snapshots/reconciler-workflow/reactfiberworkloop.png)
 
 1. 输入阶段: 衔接`react-dom`包, 承接`fiber更新`请求(可以参考[React 应用的启动过程](./bootstrap.md)).
 2. 注册调度任务: 与调度中心(`scheduler`包)交互, 注册调度任务`task`, 等待任务回调(可以参考[React 调度原理(scheduler)](./scheduler.md)).
@@ -46,7 +46,7 @@ date: 2023/06/10
 
 它们之间的关系反映了我们书写的 JSX 代码到 DOM 节点的转换过程:
 
-![](../../snapshots/fibertree-create/code2dom.png)
+![](../../../snapshots/fibertree-create/code2dom.png)
 
 注意:
 
@@ -173,11 +173,11 @@ export function scheduleUpdateOnFiber(
 
 1. 构造过程中, `fiberRoot.current`指向当前界面对应的`fiber`树.
 
-![](../../snapshots/fibertree-create/fibertreecreate1-progress.png)
+![](../../../snapshots/fibertree-create/fibertreecreate1-progress.png)
 
 2. 构造完成并渲染, 切换`fiberRoot.current`指针, 使其继续指向当前界面对应的`fiber`树(原来代表界面的 fiber 树, 变成了内存中).
 
-![](../../snapshots/fibertree-create/fibertreecreate2-complete.png)
+![](../../../snapshots/fibertree-create/fibertreecreate2-complete.png)
 
 ### 优先级 {#lanes}
 

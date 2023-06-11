@@ -255,7 +255,7 @@ function updateState<S>(
 
 在执行`updateReducer`之前, `hook`相关的内存结构如下:
 
-![](../../snapshots/hook-state/before-basequeue-combine.png)
+![](../../../snapshots/hook-state/before-basequeue-combine.png)
 
 ```js
 function updateReducer<S, I, A>(
@@ -430,7 +430,7 @@ function dispatchAction<S, A>(
 
 在执行`updateReducer`之前, `hook.memoizedState`有如下结构(其中`update3, update4`是低优先级):
 
-![](../../snapshots/hook-state/async-update-before-combine.png)
+![](../../../snapshots/hook-state/async-update-before-combine.png)
 
 链表拼接:
 
@@ -453,7 +453,7 @@ function dispatchAction<S, A>(
 
 - 由于`queue.pending = null`, 故拼接前后没有实质变化
 
-![](../../snapshots/hook-state/async-final-combine.png)
+![](../../../snapshots/hook-state/async-final-combine.png)
 
 状态计算:
 

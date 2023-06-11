@@ -15,7 +15,7 @@ bannerBrand:
     - { text: 开始学习->, link: '/docs/guide/introduce' }
     - { text: 欢迎讨论, link: '/docs/style-default-api/introduce', type: 'plain' }
   socialLinks:
-    - { icon: 'LogoGithub', link: '' }
+    - { icon: 'LogoGithub', link: 'https://github.com/W-HanYu/FE-Origincode' }
 customModule:
   feature:
     - {
