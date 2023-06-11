@@ -48,7 +48,7 @@ date: 2023/06/10
 
 在调用入口函数之前,`reactElement(<App/>)`和 DOM 对象`div#root`之间没有关联, 用图片表示如下:
 
-![](../../snapshots/bootstrap/process-before.png)
+![](../../../snapshots/bootstrap/process-before.png)
 
 ### 创建全局对象 {#create-global-obj}
 
@@ -70,7 +70,7 @@ date: 2023/06/10
 
 这一过程是从`react-dom`包发起, 内部调用了`react-reconciler`包, 核心流程图如下(其中红色标注了 3 个对象的创建时机).
 
-![](../../snapshots/bootstrap/function-call.png)
+![](../../../snapshots/bootstrap/function-call.png)
 
 下面逐一解释这 3 个对象的创建过程.
 
@@ -312,15 +312,15 @@ export function createHostRootFiber(tag: RootTag): Fiber {
 
 1. legacy
 
-![](../../snapshots/bootstrap/process-legacy.png)
+![](../../../snapshots/bootstrap/process-legacy.png)
 
 2. concurrent
 
-![](../../snapshots/bootstrap/process-concurrent.png)
+![](../../../snapshots/bootstrap/process-concurrent.png)
 
 3. blocking
 
-![](../../snapshots/bootstrap/process-blocking.png)
+![](../../../snapshots/bootstrap/process-blocking.png)
 
 注意:
 

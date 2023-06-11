@@ -415,17 +415,17 @@ function mountWorkInProgressHook(): Hook {
 
 本示例中, `function`调用之后则会创建 4 个`hook`, 这时的内存结构如下:
 
-![](../../../../snapshots/hook-summary/mount-after-renderwithhooks.png)
+![](../../../snapshots/hook-summary/mount-after-renderwithhooks.png)
 
 可以看到: 无论`状态Hook`或`副作用Hook`都按照调用顺序存储在`fiber.memoizedState`链表中.
 
-![](../../../../snapshots/hook-summary/mount-fiber-memoizedstate.png)
+![](../../../snapshots/hook-summary/mount-fiber-memoizedstate.png)
 
 ### 顺序克隆
 
 `fiber树构造(对比更新)`阶段, 执行`updateFunctionComponent->renderWithHooks`时再次调用`function`, `调用function前`的内存结构如下:
 
-![](../../../../snapshots/hook-summary/update-before-renderwithhooks.png)
+![](../../../snapshots/hook-summary/update-before-renderwithhooks.png)
 
 注意: 在`renderWithHooks`函数中已经设置了`workInProgress.memoizedState = null`, 等待调用`function`时重新设置.
 
@@ -506,14 +506,14 @@ function updateWorkInProgressHook(): Hook {
 
 所以`function`执行完成之后, 有关`Hook`的内存结构如下:
 
-![](../../../../snapshots/hook-summary/update-after-renderwithhooks.png)
+![](../../../snapshots/hook-summary/update-after-renderwithhooks.png)
 
 可以看到:
 
 1. 以双缓冲技术为基础, 将`current.memoizedState`按照顺序克隆到了`workInProgress.memoizedState`中.
 2. `Hook`经过了一次克隆, 内部的属性(`hook.memoizedState`等)都没有变动, 所以其状态并不会丢失.
 
-![](../../../../snapshots/hook-summary/update-fiber-memoizedstate.png)
+![](../../../snapshots/hook-summary/update-fiber-memoizedstate.png)
 
 ## 总结
 

@@ -4,14 +4,15 @@ import recoTheme from "vuepress-theme-reco";
 
 export default defineUserConfig({
   title: "Ustinian",
-  description: "Just playing around",
+  base: "/FE-Origincode/",
+  description: "react、vue主流框架源码的输出，包括原理解析以及框架中的算法以及面试频率很高的相关知识点，带你更深入的学习底层原理。",
   theme: recoTheme({
     style: "@vuepress-reco/style-default",
     logo: "/logo.png",
     author: "wangtao",
     authorAvatar: "/head.png",
     // docsRepo: "https://github.com/vuepress-reco/vuepress-theme-reco-next",
-    docsBranch: "main",
+    docsBranch: "master",
     docsDir: "example",
     lastUpdatedText: "",
     // series 为原 sidebar
@@ -45,19 +46,19 @@ export default defineUserConfig({
           ],
         },
       ],
-      "/docs/react/algorithm":[
+      "/docs/react/algorithm": [
         {
           text: "React中的算法",
-          children:[
+          children: [
             "diff",
             "bitfield",
             "dfs",
             "heapsort",
             "linkedlist",
-            "stack"
-          ]
-        }
-      ]
+            "stack",
+          ],
+        },
+      ],
     },
     navbar: [
       { text: "首页", link: "/" },

@@ -184,7 +184,7 @@ const performWorkUntilDeadline = () => {
 
 分析到这里, 可以得到调度中心的内核实现图:
 
-![](../../snapshots/scheduler/core.png)
+![](../../../snapshots/scheduler/core.png)
 
 说明: 这个流程图很简单, 源码量也很少(总共不到 80 行), 但是它代表了`scheduler`的核心, 所以精华其实并不一定需要很多代码.
 
