@@ -7,7 +7,7 @@
             v-if="frontmatter?.customModule?.heroText"
             class="content-box-top-left-title"
           >
-            渐进式
+            深入Source
           </div>
           <div
             v-if="frontmatter?.customModule?.heroText"
