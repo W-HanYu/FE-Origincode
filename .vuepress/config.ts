@@ -3,7 +3,7 @@ import recoTheme from "vuepress-theme-reco";
 
 export default defineUserConfig({
   title: "Ustinian",
-  base: "/FE-Origincode/",
+  base: "/",
   description:
     "react、vue主流框架源码的输出，包括原理解析以及框架中的算法以及面试频率很高的相关知识点，带你更深入的学习底层原理。",
   head: [
